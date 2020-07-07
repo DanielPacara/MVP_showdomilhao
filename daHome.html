@@ -1,0 +1,273 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="estiloperguntas.css" media="screen">
+  <meta charset="UTF-8" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+
+
+</head>
+
+<body>
+
+
+  <div class="Jogodomilhao1999-1"></div>
+
+  <div class="silvio-santos-boneco-removebg-preview-1"></div>
+
+
+
+
+
+
+  <div class="Ellipse-5">
+    <div class="Ellipse"></div>
+    <div class=" Ellipse"></div>
+    <div class=" Ellipse"></div>
+    <div class=" Ellipse"></div>
+    <div class=" Ellipse"></div>
+  </div>
+
+
+
+  <div class="Ellipse-5 opcoes">
+    <label class="A opcoes ">A</label>
+    <label class="A opcoes">B</label>
+    <label class="A opcoes">C</label>
+    <label class="A opcoes">D</label>
+    <label class="A opcoes">E</label>
+  </div>
+
+
+
+
+
+
+
+
+  <div class="Frame-2 p2">
+    <p> Quem Descobriu o Brasil?</p>
+  </div>
+
+  <div class="Frame-1">
+
+    <p  class="Frame ">Daniel </p>
+    <p class="Frame">Alex </p>
+    <p class="Frame">Bento</p>
+    <p class="Frame">Fico</p>
+    <p class="Frame">Pedro alvares Cabral</p>
+  </div>
+
+
+
+
+
+
+  <div class="barra"></div>
+  <p class="Frame-10 continue parar">Parar</p>
+
+  <div class="barra barra2"></div>
+  <p id="add" class="Frame-10 azul continue">Continuar</p>
+
+
+<span class="premio2" id="prem2">R$ 0.000</span>
+<span id="prem">R$ 0.000</span>
+
+
+
+
+
+<p id="tempo" ></p>
+
+</body>
+
+
+
+
+
+
+<script src="./Perguntas.js"></script>
+<script src="./suporte.js"></script>
+<script>
+var segundos=0;
+var intervalo;
+var contagem=0;
+function ContarSegundos(){
+  
+    segundos++
+    document.getElementById("tempo").innerHTML=segundos +" segundos"
+    if(segundos==5){
+    clearInterval(intervalo);
+    segundos=0
+    document.getElementById("tempo").innerHTML=""
+  }
+
+}
+
+
+
+
+
+  // MostrarPerguntas()
+MostrarPerguntas()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  $(document).ready(function () {
+    $("#add").on('click', function () {
+     
+      marcarReposta()
+     // alert(document.getElementsByClassName("active")[0].innerHTML)
+      //alert(perguntaAtual+document.getElementsByClassName("active")[0].innerHTML)
+      Jogar=VerResposta(perguntaAtual, document.getElementsByClassName("active")[0].innerHTML)
+     
+if(Jogar){
+  setTimeout(MostrarPerguntas, 1000*5);
+  setTimeout(LimparCorrect, 1000*5);
+  setTimeout(LimparActive, 1000*5);
+  setTimeout(ganhou, 1000*5);
+  intervalo=setInterval(ContarSegundos, 1000);
+  document.getElementById("prem").innerHTML=document.getElementById("prem2").innerHTML
+  sessionStorage.setItem('premio', document.getElementById("prem").innerHTML);
+  
+}
+else{
+ 
+window.location.href = "nova/pagina2.html";
+document.getElementById("prem").innerHTML=0
+sessionStorage.setItem('premio', document.getElementById("prem").innerHTML);}
+    });
+
+
+  });
+
+
+  $(document).ready(function () {
+    $(".Frame").on('click', function () {
+
+      ativar(this)
+
+    });
+
+
+  });
+
+
+
+
+
+
+
+  function LimparActive(){
+  var pot=document.getElementsByClassName("Frame")
+for(i=0;i<pot.length;i++)
+pot[i].classList.remove('active')
+
+
+}
+
+function LimparCorrect(){
+  var pot=document.getElementsByClassName("Frame")
+for(i=0;i<pot.length;i++)
+pot[i].classList.remove('correct')
+
+
+}
+
+
+
+function ativar(ele){
+  LimparActive()
+
+ele.classList.add('active');
+
+}
+
+
+
+
+
+
+
+
+function marcarReposta() {
+ 
+ var p= document.getElementsByTagName("p")
+var tut;
+
+ for(m=1;m<perguntaAtual.length;m++){
+
+  if(VerResposta(perguntaAtual, p[m].innerHTML)) 
+  tut=p[m]
+ 
+}
+
+tut.classList.add('correct');
+
+ }
+ 
+//  VerResposta(perguntaAtual, RespostaDoUsuario)
+
+
+
+
+function ganhou(){
+  contagem++
+  if(contagem==15)
+  window.location.href = "nova/pagina2.html";
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$(document).ready(function () {
+    $(".parar").on('click', function () {
+     
+   
+window.location.href = "nova/pagina2.html";
+
+sessionStorage.setItem('premio', document.getElementById("prem").innerHTML);
+    });
+
+
+  });
+
+</script>
+
+
+
+
+
+
+
+
+
+</html>
